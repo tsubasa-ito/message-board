@@ -16,7 +16,7 @@ class MessagesController extends Controller
      // getでmessages/にアクセスされた場合の「一覧表示処理」
     public function index()
     {
-       $messages = Message::all();
+       $messages = Message::orderBy('id', 'desc')->paginate(25);
        
        //Controller から特定の View を呼び出すには、 view() を使う　第一引数は表示したいviewを指定（形）
        return view('messages.index', [
@@ -88,7 +88,7 @@ class MessagesController extends Controller
     {
         $message = Message::find($id);
 
-        return view('messages.show', [
+        return view('messages.edit', [
             'message' => $message,
         ]);
     }
